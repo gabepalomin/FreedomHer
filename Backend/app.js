@@ -38,7 +38,7 @@ app.use("/api/v1/users", User);
 //Error middleware
 app.use(notFound);
 app.use(errorHandler);
-
+console.log(process.env.JWT_LIFETIME);
 // -------------------- Server startup
 const port = process.env.PORT || 4000;
 
