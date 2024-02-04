@@ -9,7 +9,12 @@ const {
   getAllPostsForUser,
 } = require("../controllers/postController");
 
-const { makeComment, addComment, getAllCommentsForUser,getCommentsForPost } = require("../controllers/commentController");
+const {
+  makeComment,
+  addComment,
+  getAllCommentsForUser,
+  getCommentsForPost,
+} = require("../controllers/commentController");
 const router = express.Router();
 
 router.route("/").get(getAllPosts);
