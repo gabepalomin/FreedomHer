@@ -9,6 +9,8 @@ const cookieParser = require("cookie-parser");
 const connectDB = require("./db/connect");
 const morgan = require("morgan");
 
+// -------------------------- Mongodb connection
+const connectDB = require("./db/connect");
 // Error middleware import
 const notFound = require("./middleware/not-found");
 const errorHandler = require("./middleware/error-handler");
