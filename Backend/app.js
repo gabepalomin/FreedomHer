@@ -11,7 +11,7 @@ const morgan = require("morgan");
 // -------------------------- Mongodb connection
 const connectDB = require("./db/connect.js");
 
-// ---------------------------  Error middleware import
+// ---------------------------Error middleware import
 const notFound = require("./middleware/not-found");
 const errorHandler = require("./middleware/error-handler");
 
