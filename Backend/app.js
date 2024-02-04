@@ -22,7 +22,7 @@ app.use(morgan("tiny"));
 app.use(express.json()); //makes json readily available as javascript object in req.body
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://freedomher.org",
     credentials: true, // This is important for cookies
   })
 );
