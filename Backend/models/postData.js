@@ -1,35 +1,42 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const postSchema = new Schema({
+const postSchema = new Schema(
+  {
     title: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     content: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     vote: {
-        type: Number,
-        required: false
+      type: Number,
+      required: false,
     },
     genre: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     comments: {
-        type: [mongoose.Schema.Types.ObjectId],
-        required: true,
-        ref: "FreedomHerReply",
-        default: []
+      type: [mongoose.Schema.Types.ObjectId],
+      required: true,
+      ref: "FreedomHerReply",
+      default: [],
     },
     author: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: false,
-        ref: "FreedomHerUser",
-    }
-}, {timestamps: true});
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "FreedomHerUser",
+    },
+    profileImage: {
+      type: String,
+      required: false,
+    },
+  },
+  { timestamps: true }
+);
 
-const postData = mongoose.model('FreedomHerPost', postSchema);
+const postData = mongoose.model("FreedomHerPost", postSchema);
 module.exports = postData;
