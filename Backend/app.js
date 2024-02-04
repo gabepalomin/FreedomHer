@@ -20,12 +20,15 @@ app.use(cookieParser(process.env.JWT_SECRET));
 app.use(morgan("tiny"));
 
 app.use(express.json()); //makes json readily available as javascript object in req.body
-app.use(
-  cors({
-    origin: "*",
-    credentials: true, // This is important for cookies
-  })
-);
+// CORS configuration
+const corsOptions = {
+  origin: "https://freedomher.org", // Replace with your S3 frontend URL
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allow all methods
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 // ---------------------- Routes
 const Posts = require("./routes/postRoutes");
 app.use("/api/v1/posts", Posts);
