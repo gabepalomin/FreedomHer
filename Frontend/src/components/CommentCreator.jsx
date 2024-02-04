@@ -15,6 +15,7 @@
 //       const dataToAdd = {
 //         reply: "another reply!"
 //       };
+//       };
 
 //       //console.log(`http://localhost:4000/api/v1/posts/comment/${id}`);
 //       const response = await axios.patch(`http://localhost:4000/api/v1/posts/comment/${id}`, dataToAdd);
@@ -110,7 +111,7 @@ function CommentCreator() {
           ></textarea>
           <button
             type="submit"
-            className="font-herfonty text-lg bg-[rgba(135,116,162,0.4)] transition ease-in-out hover:bg-[rgba(135,116,162,0.85)] py-4 px-3 rounded-lg sm:w-[10rem] mt-4 ml-3"
+            className="font-herfonty text-lg bg-[rgba(135,116,162,0.4)] transition ease-in-out hover:bg-[rgba(135,116,162,0.85)] py-4 px-3 rounded-lg sm:w-[10rem] ml-3"
           >
             Post reply
           </button>
