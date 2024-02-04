@@ -7,6 +7,7 @@ const {
   addUpVote,
   updatePost,
   getAllPostsForUser,
+  getPfp,
 } = require("../controllers/postController");
 
 const {
@@ -32,5 +33,7 @@ router.route("/userComments/:id").get(getAllCommentsForUser);
 router.route("/userPosts/:id").get(getAllPostsForUser);
 
 router.route("/comment/:id").get(getCommentsForPost);
+
+router.route("/pfp/:id").get(getPfp); //gets the profile picture
 
 module.exports = router;
