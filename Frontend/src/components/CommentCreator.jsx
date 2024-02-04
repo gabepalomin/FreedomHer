@@ -61,7 +61,6 @@ import axios from "axios";
 import LoginOrRegisterModal from "../components/LoginOrRegisterModal"; // Import your login/register modal component
 import { useAuth } from "../context/authContext.jsx"; // Adjust the import path as necessary
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function CommentCreator() {
   const { id } = useParams();
