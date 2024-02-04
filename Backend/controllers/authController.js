@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 const userData = require("../models/users");
 const CustomError = require("../errors");
 const { StatusCodes } = require("http-status-codes");
-const { attachCookiesToResponse, createTokenUser } = require("../utils");
+const {
+  attachCookiesToResponse,
+  createTokenUser,
+  isTokenValid,
+} = require("../utils");
 
 // const register = async (req, res) => {
 //   try {
@@ -118,6 +122,45 @@ const login = async (req, res) => {
     res.status(error.statusCode || 500).json({ error: error.message });
   }
 };
+const islogin = async (req, res) => {
+  try {
+    console.log(req.cookies);
+    console.log(req.signedCookies);
+    // Check if signed cookies exist and contain a specific cookie (e.g., 'userId')
+    if (!req.signedCookies) {
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ msg: "Not logged in" });
+    }
+    console.log(req.signedCookies);
+    const token = req.signedCookies.token;
+    // Extract user ID from signed cookie
+    const { userId } = isTokenValid({ token });
+
+    // Find user by ID
+    const user = await userData.findById(userId);
+
+    if (!user) {
+      return res.status(StatusCodes.NOT_FOUND).json({ msg: "User not found" });
+    }
+
+    // Prepare user data for response, excluding sensitive information
+    const userForResponse = {
+      //_id: user._id, // Optionally include if needed
+      username: user.username,
+      profileImage: user.profileImage,
+      // Include any other fields you want to return
+    };
+
+    // Respond with user data
+    res.status(StatusCodes.OK).json(userForResponse);
+  } catch (error) {
+    // Make sure to handle errors appropriately
+    res
+      .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: error.message });
+  }
+};
 
 const logout = async (req, res) => {
   req.cookie("token", "logout", {
@@ -131,4 +174,5 @@ module.exports = {
   register,
   login,
   logout,
+  islogin,
 };

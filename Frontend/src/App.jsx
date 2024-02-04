@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
-import { useState } from "react";
+import { useEffect } from "react";
 import Home from "../src/pages/Home";
 import Forum from "../src/pages/Forums";
 import About from "../src/pages/About";
@@ -11,9 +11,14 @@ import Register from "../src/pages/Register";
 import Nav from "../src/components/Nav";
 import SpecificPost from "./pages/SpecificPost";
 import { AuthProvider } from "./context/authContext";
+import { useAuth } from "./context/authContext.jsx";
+import axios from "axios";
 function App() {
+  axios.defaults.withCredentials = true;
+
   return (
     <AuthProvider>
+      <AuthInitializer />
       <BrowserRouter>
         <div className="sticky top-0 z-50">
           <Nav />
@@ -32,5 +37,13 @@ function App() {
     </AuthProvider>
   );
 }
+function AuthInitializer() {
+  const { isLogin } = useAuth();
 
+  useEffect(() => {
+    isLogin();
+  }, []);
+
+  return null; // Renders nothing, but `isLogin` will be called
+}
 export default App;

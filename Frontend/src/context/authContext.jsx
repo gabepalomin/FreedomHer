@@ -15,44 +15,66 @@ export const AuthProvider = ({ children }) => {
   // Function to handle login
   const login = async (username, password) => {
     try {
-      const response = await axios.post(`${BASE_URL}/api/v1/users/login`, {
-        username,
-        password,
-      });
-      //Note that response.data json object should be only returning the username and profileImage link. Ask aarush for more details
-      setCurrentUser(response.data); // Assuming the user data is in response.data.user
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/users/login`,
+        { username, password },
+        { withCredentials: true } // Add withCredentials here
+      );
+      setCurrentUser(response.data);
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
-      throw error; // Rethrow the error to handle it in the component
+      throw error;
     }
   };
 
   //Handle registration logic
   const register = async (username, password) => {
     try {
-      const response = await axios.post(`${BASE_URL}/api/v1/users/register`, {
-        username,
-        password,
-      });
-      //Note that response.data json object should be only returning the username and profileImage link. Ask aarush for more details
-      setCurrentUser(response.data); // Set user data on successful registration
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/users/register`,
+        { username, password },
+        { withCredentials: true } // Add withCredentials here
+      );
+      setCurrentUser(response.data);
     } catch (error) {
       console.error(
         "Registration error:",
         error.response?.data || error.message
       );
-      throw error; // Rethrow the error to handle it in the component
+      throw error;
     }
   };
 
   // Function to handle logout
   const logout = async () => {
     try {
-      await axios.get(`${BASE_URL}/api/v1/users/logout`);
+      await axios.get(`${BASE_URL}/api/v1/users/logout`, {
+        withCredentials: true, // Add withCredentials here
+      });
       setCurrentUser(null);
     } catch (error) {
       console.error("Logout error:", error.response?.data || error.message);
-      throw error; // Handle errors appropriately
+      throw error;
+    }
+  };
+
+  const isLogin = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/api/v1/users/islogin`, {
+        withCredentials: true, // Add withCredentials here
+      });
+      if (response.status === 200) {
+        console.log(response.data);
+        setCurrentUser(response.data);
+      } else {
+        setCurrentUser(null);
+      }
+    } catch (error) {
+      console.error(
+        "Check login error:",
+        error.response?.data || error.message
+      );
+      setCurrentUser(null);
     }
   };
 
@@ -61,6 +83,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     register,
+    isLogin,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
